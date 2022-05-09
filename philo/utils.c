@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 21:01:07 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/09 11:21:23 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/09 21:41:01 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ int	ft_atoi(const char *str)
 	return ((int)res);
 }
 
-int	print_error(const char *s)
+t_bool	print_error(const char *s)
 {
 	const size_t	len = ft_strlen(s);
 
 	write(STDERR, s, len);
-	return (1);
+	return (TRUE);
 }

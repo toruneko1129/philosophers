@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/09 13:09:27 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/09 23:44:08 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 //error message
 # define EARG "[usage]: ./philo <philo> <die> <eat> <sleep> [must_eat]\n"
 # define EVAL "Error: Invalid value\n"
+# define EMALLOC "Error: malloc() failed\n"
+# define EMUTEX "Error: pthread_mutex_init() failed\n"
 
 typedef int	t_bool;
 
@@ -44,14 +46,16 @@ typedef struct s_phbuffer
 	int				num_of_times_each_philo_must_eat;
 	t_bool			opt;
 	t_bool			end;
-	pthread_t		observer;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	eating;
+	pthread_mutex_t	writing;
 }	t_phbuffer;
 
 //setup_rules.c
-int		check_args(t_phbuffer phbuffer);
+t_bool	check_args(t_phbuffer phbuffer);
 
 //utils.c
 int		ft_atoi(const char *str);
-int		print_error(const char *s);
+t_bool	print_error(const char *s);
 
 #endif
