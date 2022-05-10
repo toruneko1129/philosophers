@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/09 23:44:08 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/10 16:09:33 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,36 @@ typedef enum e_boolean
 	TRUE
 }	t_boolean;
 
+typedef struct s_philo
+{
+	int					id;
+	int					left_fork;
+	int					right_fork;
+	int					cnt_ate;
+	suseconds_t			last_meal;
+	pthread_t			thread;
+	struct s_phbuffer	*phbuffer;
+}	t_philo;
+
 typedef struct s_phbuffer
 {
-	int				num_of_philo;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				num_of_times_each_philo_must_eat;
-	t_bool			opt;
-	t_bool			end;
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	eating;
-	pthread_mutex_t	writing;
+	int					num_of_philo;
+	int					time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	int					num_of_times_each_philo_must_eat;
+	t_bool				opt;
+	t_bool				end;
+	pthread_mutex_t		*fork;
+	pthread_mutex_t		eating;
+	pthread_mutex_t		writing;
+	struct s_philo		*philo;
 }	t_phbuffer;
 
 //setup_rules.c
-t_bool	check_args(t_phbuffer phbuffer);
+t_bool	get_args(int argc, char **argv, t_phbuffer *phbuffer);
+t_bool	init_mutex(t_phbuffer *phbuffer);
+void	init_philo(t_philo *philo, int i);
 
 //utils.c
 int		ft_atoi(const char *str);
