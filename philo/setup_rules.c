@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 11:18:37 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/10 16:06:22 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:31:16 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,28 @@ t_bool	init_mutex(t_phbuffer *phbuffer)
 	return (FALSE);
 }
 
-void	init_philo(t_philo *philo)
+t_bool	init_philo(t_phbuffer *phbuffer)
 {
-	(void)philo;
+	int		i;
+	t_philo	philo;
+
+	phbuffer->philo = (t_philo *)malloc(sizeof(t_philo)
+			* phbuffer->num_of_philo);
+	if (phbuffer->philo == NULL)
+	{
+		free(phbuffer->fork);
+		return (print_error(EMALLOC));
+	}
+	i = -1;
+	while (++i < phbuffer->num_of_philo)
+	{
+		philo = phbuffer->philo[i];
+		philo.id = i;
+		philo.left_fork = i;
+		philo.right_fork = (i + 1) % phbuffer->num_of_philo;
+		philo.cnt_ate = 0;
+		philo.last_meal = 0;
+		philo.phbuffer = phbuffer;
+	}
+	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/10 16:09:33 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:11:03 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_phbuffer
 //setup_rules.c
 t_bool	get_args(int argc, char **argv, t_phbuffer *phbuffer);
 t_bool	init_mutex(t_phbuffer *phbuffer);
-void	init_philo(t_philo *philo, int i);
+t_bool	init_philo(t_phbuffer *phbuffer);
 
 //utils.c
 int		ft_atoi(const char *str);
