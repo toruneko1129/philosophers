@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 15:58:03 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/12 00:19:48 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/12 23:24:15 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ static t_bool	setup_rules(int argc, char **argv, t_phbuffer *phbuffer)
 	return (FALSE);
 }
 
+static t_bool	start_routine(t_phbuffer *phbuffer)
+{
+	int		i;
+	t_philo	*philo;
+
+	i = -1;
+	philo = phbuffer->philo;
+	while (++i < phbuffer->num_of_philo)
+		pthread_create(&(philo[i].thread), NULL, philo_routine, &(philo[i]));
+	return (FALSE);
+}
+
 int	main(int argc, char **argv)
 {
 	t_phbuffer	phbuffer;
@@ -41,6 +53,10 @@ int	main(int argc, char **argv)
 	phbuffer_init(&phbuffer);
 	if (setup_rules(argc, argv, &phbuffer))
 		return (EXIT_FAILURE);
+	start_routine(&phbuffer);
+	i = -1;
+	while (++i < phbuffer.num_of_philo)
+		pthread_join(phbuffer.philo[i].thread, NULL);
 	pthread_mutex_destroy(&(phbuffer.eating));
 	pthread_mutex_destroy(&(phbuffer.writing));
 	i = -1;

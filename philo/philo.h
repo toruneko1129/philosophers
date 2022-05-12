@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/12 00:11:03 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/12 23:11:30 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_philo
 	int					left_fork;
 	int					right_fork;
 	int					cnt_ate;
-	suseconds_t			last_meal;
+	long				last_meal;
 	pthread_t			thread;
 	struct s_phbuffer	*phbuffer;
 }	t_philo;
@@ -68,8 +68,14 @@ t_bool	get_args(int argc, char **argv, t_phbuffer *phbuffer);
 t_bool	init_mutex(t_phbuffer *phbuffer);
 t_bool	init_philo(t_phbuffer *phbuffer);
 
+//philo_routine.c
+void	*philo_routine(void *arg);
+
 //utils.c
 int		ft_atoi(const char *str);
 t_bool	print_error(const char *s);
+
+//utils2.c
+long	get_timestamp(void);
 
 #endif
