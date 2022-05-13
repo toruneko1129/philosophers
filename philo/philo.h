@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/12 23:11:30 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/13 18:45:32 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define EVAL "Error: Invalid value\n"
 # define EMALLOC "Error: malloc() failed\n"
 # define EMUTEX "Error: pthread_mutex_init() failed\n"
+
+//philo message
+# define PFORK "has taken a fork"
 
 typedef int	t_bool;
 
@@ -77,5 +80,6 @@ t_bool	print_error(const char *s);
 
 //utils2.c
 long	get_timestamp(void);
+void	print_action(t_phbuffer *phbuffer, int id, const char *action);
 
 #endif

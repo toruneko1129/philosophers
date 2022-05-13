@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 11:18:37 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/13 00:07:03 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/13 21:54:00 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_bool	init_philo(t_phbuffer *phbuffer)
 	while (++i < phbuffer->num_of_philo)
 	{
 		philo = &(phbuffer->philo[i]);
-		philo->id = i;
+		philo->id = i + 1;
 		philo->left_fork = i;
 		philo->right_fork = (i + 1) % phbuffer->num_of_philo;
 		philo->cnt_ate = 0;
