@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/15 15:58:02 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/15 23:38:11 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <limits.h>
 
 # define STDERR 2
+# define MAX_PHILO 200
 
 //error message
 # define EARG "[usage]: ./philo <philo> <die> <eat> <sleep> [must_eat]\n"
@@ -71,9 +72,10 @@ typedef struct s_phbuffer
 }	t_phbuffer;
 
 //setup_rules.c
-t_bool	get_args(int argc, char **argv, t_phbuffer *phbuffer);
-t_bool	init_mutex(t_phbuffer *phbuffer);
-t_bool	init_philo(t_phbuffer *phbuffer);
+t_bool	get_args(const int argc, char **const argv,
+			t_phbuffer *const phbuffer);
+t_bool	init_mutex(t_phbuffer *const phbuffer);
+t_bool	init_philo(t_phbuffer *const phbuffer);
 
 //philo_routine.c
 void	*philo_routine(void *arg);

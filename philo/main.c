@@ -6,13 +6,13 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 15:58:03 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/15 16:00:25 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/15 22:01:39 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	phbuffer_init(t_phbuffer *phbuffer)
+static void	phbuffer_init(t_phbuffer *const phbuffer)
 {
 	phbuffer->num_of_philo = 0;
 	phbuffer->time_to_die = 0;
@@ -25,7 +25,8 @@ static void	phbuffer_init(t_phbuffer *phbuffer)
 	phbuffer->philo = NULL;
 }
 
-static t_bool	setup_rules(int argc, char **argv, t_phbuffer *phbuffer)
+static t_bool	setup_rules(const int argc, char **const argv,
+	t_phbuffer *const phbuffer)
 {
 	if (get_args(argc, argv, phbuffer) || init_mutex(phbuffer)
 		|| init_philo(phbuffer))
@@ -68,24 +69,30 @@ static t_bool	start_routine(t_phbuffer *phbuffer)
 	return (FALSE);
 }
 
+static void	destroy_phbuffer(t_phbuffer *phbuffer)
+{
+	int		i;
+
+	i = -1;
+	while (++i < phbuffer->num_of_philo)
+		pthread_join(phbuffer->philo[i].thread, NULL);
+	pthread_mutex_destroy(&(phbuffer->eating));
+	pthread_mutex_destroy(&(phbuffer->writing));
+	i = -1;
+	while (++i < phbuffer->num_of_philo)
+		pthread_mutex_destroy(&(phbuffer->fork[i]));
+	free(phbuffer->fork);
+	free(phbuffer->philo);
+}
+
 int	main(int argc, char **argv)
 {
 	t_phbuffer	phbuffer;
-	int			i;
 
 	phbuffer_init(&phbuffer);
 	if (setup_rules(argc, argv, &phbuffer))
 		return (EXIT_FAILURE);
 	start_routine(&phbuffer);
-	i = -1;
-	while (++i < phbuffer.num_of_philo)
-		pthread_join(phbuffer.philo[i].thread, NULL);
-	pthread_mutex_destroy(&(phbuffer.eating));
-	pthread_mutex_destroy(&(phbuffer.writing));
-	i = -1;
-	while (++i < phbuffer.num_of_philo)
-		pthread_mutex_destroy(&(phbuffer.fork[i]));
-	free(phbuffer.fork);
-	free(phbuffer.philo);
+	destroy_phbuffer(&phbuffer);
 	return (EXIT_SUCCESS);
 }

@@ -6,13 +6,14 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 11:18:37 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/13 21:54:00 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/15 23:39:08 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_bool	get_args(int argc, char **argv, t_phbuffer *phbuffer)
+t_bool	get_args(const int argc, char **const argv,
+	t_phbuffer *const phbuffer)
 {
 	if (argc != 5 && argc != 6)
 		return (print_error(EARG));
@@ -25,15 +26,16 @@ t_bool	get_args(int argc, char **argv, t_phbuffer *phbuffer)
 		phbuffer->num_of_times_each_philo_must_eat = ft_atoi(argv[5]);
 		phbuffer->opt = TRUE;
 	}
-	if (phbuffer->num_of_philo <= 0 || phbuffer->time_to_die <= 0
-		|| phbuffer->time_to_eat <= 0 || phbuffer->time_to_sleep <= 0)
+	if (phbuffer->num_of_philo <= 0 || phbuffer->num_of_philo > MAX_PHILO
+		|| phbuffer->time_to_die <= 0 || phbuffer->time_to_eat <= 0
+		|| phbuffer->time_to_sleep <= 0)
 		return (print_error(EVAL));
 	if (phbuffer->opt && phbuffer->num_of_times_each_philo_must_eat <= 0)
 		return (print_error(EVAL));
 	return (FALSE);
 }
 
-t_bool	init_mutex(t_phbuffer *phbuffer)
+t_bool	init_mutex(t_phbuffer *const phbuffer)
 {
 	int		i;
 
@@ -56,7 +58,7 @@ t_bool	init_mutex(t_phbuffer *phbuffer)
 	return (FALSE);
 }
 
-t_bool	init_philo(t_phbuffer *phbuffer)
+t_bool	init_philo(t_phbuffer *const phbuffer)
 {
 	int		i;
 	t_philo	*philo;
