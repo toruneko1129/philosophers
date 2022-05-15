@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 23:00:05 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/15 16:10:53 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/15 16:41:00 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	philo_eating(t_philo *philo)
 
 	phbuffer = philo->phbuffer;
 	if (philo->id % 2)
-		usleep(10000);
+		usleep(5000);
 	pthread_mutex_lock(&(phbuffer->fork[philo->left_fork]));
 	print_action(phbuffer, philo->id, PFORK);
 	pthread_mutex_lock(&(phbuffer->fork[philo->right_fork]));
