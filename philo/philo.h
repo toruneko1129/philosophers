@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/13 18:45:32 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/15 15:58:02 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 
 //philo message
 # define PFORK "has taken a fork"
+# define PEAT "is eating"
+# define PSLEEP "is sleeping"
+# define PTHINK "is thinking"
+# define PDIED "died"
 
 typedef int	t_bool;
 
