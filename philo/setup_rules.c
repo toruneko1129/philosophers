@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 11:18:37 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/15 23:39:08 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/16 11:03:59 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_bool	init_mutex(t_phbuffer *const phbuffer)
 		if (pthread_mutex_init(&(phbuffer->fork[i]), NULL))
 		{
 			free(phbuffer->fork);
+			phbuffer->fork = NULL;
 			return (print_error(EMUTEX));
 		}
 	}
@@ -68,6 +69,7 @@ t_bool	init_philo(t_phbuffer *const phbuffer)
 	if (phbuffer->philo == NULL)
 	{
 		free(phbuffer->fork);
+		phbuffer->fork = NULL;
 		return (print_error(EMALLOC));
 	}
 	i = -1;

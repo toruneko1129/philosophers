@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 15:58:03 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/15 22:01:39 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/16 11:11:43 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,21 @@ static void	phbuffer_init(t_phbuffer *const phbuffer)
 static t_bool	setup_rules(const int argc, char **const argv,
 	t_phbuffer *const phbuffer)
 {
-	if (get_args(argc, argv, phbuffer) || init_mutex(phbuffer)
-		|| init_philo(phbuffer))
+	if (get_args(argc, argv, phbuffer))
+		return (TRUE);
+	if (phbuffer->num_of_philo == 1)
+		return (FALSE);
+	if (init_mutex(phbuffer) || init_philo(phbuffer))
 		return (TRUE);
 	return (FALSE);
 }
 
-static t_bool	start_routine(t_phbuffer *phbuffer)
+static void	start_routine(t_phbuffer *const phbuffer)
 {
-	int		i;
-	t_philo	*philo;
+	t_philo *const	philo = phbuffer->philo;
+	int				i;
 
 	i = -1;
-	philo = phbuffer->philo;
 	while (++i < phbuffer->num_of_philo)
 		pthread_create(&(philo[i].thread), NULL, philo_routine, &(philo[i]));
 	while (!phbuffer->end)
@@ -66,7 +68,6 @@ static t_bool	start_routine(t_phbuffer *phbuffer)
 			phbuffer->end = TRUE;
 		usleep(200);
 	}
-	return (FALSE);
 }
 
 static void	destroy_phbuffer(t_phbuffer *phbuffer)
@@ -82,7 +83,9 @@ static void	destroy_phbuffer(t_phbuffer *phbuffer)
 	while (++i < phbuffer->num_of_philo)
 		pthread_mutex_destroy(&(phbuffer->fork[i]));
 	free(phbuffer->fork);
+	phbuffer->fork = NULL;
 	free(phbuffer->philo);
+	phbuffer->philo = NULL;
 }
 
 int	main(int argc, char **argv)
@@ -92,6 +95,8 @@ int	main(int argc, char **argv)
 	phbuffer_init(&phbuffer);
 	if (setup_rules(argc, argv, &phbuffer))
 		return (EXIT_FAILURE);
+	if (phbuffer.num_of_philo == 1)
+		return (philo_solo(&phbuffer));
 	start_routine(&phbuffer);
 	destroy_phbuffer(&phbuffer);
 	return (EXIT_SUCCESS);

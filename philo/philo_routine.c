@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 23:00:05 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/15 16:41:00 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/16 10:43:48 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ static void	philo_wait(t_phbuffer *phbuffer, long time)
 	}
 }
 
-//need to make solo part
+int	philo_solo(t_phbuffer *phbuffer)
+{
+	philo_wait(phbuffer, phbuffer->time_to_die);
+	printf("%ld %d %s\n", get_timestamp(), 1, PDIED);
+	return (EXIT_SUCCESS);
+}
+
 static void	philo_eating(t_philo *philo)
 {
 	t_phbuffer	*phbuffer;

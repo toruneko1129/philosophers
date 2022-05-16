@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/15 23:38:11 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/16 10:40:59 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_bool	init_mutex(t_phbuffer *const phbuffer);
 t_bool	init_philo(t_phbuffer *const phbuffer);
 
 //philo_routine.c
+int		philo_solo(t_phbuffer *phbuffer);
 void	*philo_routine(void *arg);
 
 //utils.c
