@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/16 10:40:59 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/16 17:47:32 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_philo
 	int					left_fork;
 	int					right_fork;
 	int					cnt_ate;
-	long				last_meal;
+	unsigned long		last_meal;
 	pthread_t			thread;
 	struct s_phbuffer	*phbuffer;
 }	t_philo;
@@ -72,21 +72,23 @@ typedef struct s_phbuffer
 }	t_phbuffer;
 
 //setup_rules.c
-t_bool	get_args(const int argc, char **const argv,
-			t_phbuffer *const phbuffer);
-t_bool	init_mutex(t_phbuffer *const phbuffer);
-t_bool	init_philo(t_phbuffer *const phbuffer);
+t_bool			get_args(const int argc, char **const argv,
+					t_phbuffer *const phbuffer);
+t_bool			init_mutex(t_phbuffer *const phbuffer);
+t_bool			init_philo(t_phbuffer *const phbuffer);
 
 //philo_routine.c
-int		philo_solo(t_phbuffer *phbuffer);
-void	*philo_routine(void *arg);
+int				philo_solo(t_phbuffer *const phbuffer);
+void			*philo_routine(void *arg);
+void			monitor_death(t_phbuffer *const phbuffer, t_philo *const philo);
 
 //utils.c
-int		ft_atoi(const char *str);
-t_bool	print_error(const char *s);
+int				ft_atoi(const char *str);
+t_bool			print_error(const char *s);
 
 //utils2.c
-long	get_timestamp(void);
-void	print_action(t_phbuffer *phbuffer, int id, const char *action);
+unsigned long	get_timestamp(void);
+void			print_action(t_phbuffer *const phbuffer, int id,
+					const char *action);
 
 #endif

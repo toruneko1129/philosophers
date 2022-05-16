@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 15:58:03 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/16 11:11:43 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/16 17:46:18 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,33 +44,15 @@ static void	start_routine(t_phbuffer *const phbuffer)
 
 	i = -1;
 	while (++i < phbuffer->num_of_philo)
-		pthread_create(&(philo[i].thread), NULL, philo_routine, &(philo[i]));
-	while (!phbuffer->end)
 	{
-		i = -1;
-		while (++i < phbuffer->num_of_philo)
-		{
-			pthread_mutex_lock(&phbuffer->eating);
-			if (get_timestamp() - philo[i].last_meal > phbuffer->time_to_die)
-			{
-				print_action(phbuffer, philo[i].id, PDIED);
-				phbuffer->end = 1;
-			}
-			pthread_mutex_unlock(&phbuffer->eating);
-		}
-		if (phbuffer->end)
-			break ;
-		i = 0;
-		while (phbuffer->opt && i < phbuffer->num_of_philo
-			&& philo[i].cnt_ate >= phbuffer->num_of_times_each_philo_must_eat)
-			++i;
-		if (i == phbuffer->num_of_philo)
-			phbuffer->end = TRUE;
-		usleep(200);
+		philo[i].last_meal = get_timestamp();
+		pthread_create(&(philo[i].thread), NULL, philo_routine, &(philo[i]));
 	}
+	while (!(phbuffer->end))
+		monitor_death(phbuffer, philo);
 }
 
-static void	destroy_phbuffer(t_phbuffer *phbuffer)
+static void	destroy_phbuffer(t_phbuffer *const phbuffer)
 {
 	int		i;
 

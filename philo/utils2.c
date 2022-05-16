@@ -6,13 +6,13 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:02:07 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/13 18:37:54 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/16 17:12:11 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	get_timestamp(void)
+unsigned long	get_timestamp(void)
 {
 	struct timeval	tv;
 
@@ -20,10 +20,10 @@ long	get_timestamp(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void	print_action(t_phbuffer *phbuffer, int id, const char *action)
+void	print_action(t_phbuffer *const phbuffer, int id, const char *action)
 {
 	pthread_mutex_lock(&(phbuffer->writing));
 	if (!phbuffer->end)
-		printf("%ld %d %s\n", get_timestamp(), id, action);
+		printf("%lu %d %s\n", get_timestamp(), id, action);
 	pthread_mutex_unlock(&(phbuffer->writing));
 }
