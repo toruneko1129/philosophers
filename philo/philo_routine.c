@@ -33,7 +33,12 @@ static void	philo_wait(t_phbuffer *const phbuffer, const unsigned long time)
 
 int	philo_solo(t_phbuffer *const phbuffer)
 {
-	philo_wait(phbuffer, phbuffer->time_to_die);
+	while (phbuffer->time_to_die > 500)
+	{
+		usleep(500 * 1000);
+		phbuffer->time_to_die -= 500;
+	}
+	usleep(phbuffer->time_to_die * 1000);
 	printf("%lu %d %s\n", get_timestamp(), 1, PDIED);
 	return (EXIT_SUCCESS);
 }
