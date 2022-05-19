@@ -18,7 +18,7 @@ SRCS	=	main.c \
 			utils2.c
 OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
-CFLAG	=	-Wall -Wextra -Werror
+CFLAG	=	-Wall -Wextra -Werror -pthread -fsanitize=thread
 
 %.o: %.c
 	$(CC) $(CFLAG) -o $@ -c $<
