@@ -44,7 +44,9 @@ static void	philo_eating(t_philo *const philo, t_phbuffer *const phbuffer)
 	philo->last_meal = get_timestamp();
 	pthread_mutex_unlock(&(phbuffer->eating));
 	philo_wait(phbuffer, phbuffer->time_to_eat);
+	pthread_mutex_lock(&(phbuffer->counting));
 	++(philo->cnt_ate);
+	pthread_mutex_unlock(&(phbuffer->counting));
 	pthread_mutex_unlock(&(phbuffer->fork[philo->right_fork]));
 	pthread_mutex_unlock(&(phbuffer->fork[philo->left_fork]));
 }
@@ -84,9 +86,11 @@ void	monitor_death(t_phbuffer *const phbuffer, t_philo *const philo)
 	if (phbuffer->end)
 		return ;
 	i = 0;
+	pthread_mutex_lock(&(phbuffer->counting));
 	while (phbuffer->opt && i < phbuffer->num_of_philo
 		&& philo[i].cnt_ate >= phbuffer->num_of_times_each_philo_must_eat)
 		++i;
+	pthread_mutex_unlock(&(phbuffer->counting));
 	if (i == phbuffer->num_of_philo)
 		phbuffer->end = TRUE;
 	usleep(500);

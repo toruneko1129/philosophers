@@ -61,6 +61,7 @@ static void	destroy_phbuffer(t_phbuffer *const phbuffer)
 		pthread_join(phbuffer->philo[i].thread, NULL);
 	pthread_mutex_destroy(&(phbuffer->eating));
 	pthread_mutex_destroy(&(phbuffer->writing));
+	pthread_mutex_destroy(&(phbuffer->counting));
 	i = -1;
 	while (++i < phbuffer->num_of_philo)
 		pthread_mutex_destroy(&(phbuffer->fork[i]));
