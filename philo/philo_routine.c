@@ -27,7 +27,7 @@ static void	philo_wait(t_phbuffer *const phbuffer, const unsigned long time)
 		pthread_mutex_unlock(&(phbuffer->checker));
 		if (get_timestamp() - std >= time)
 			return ;
-		usleep(500);
+		usleep(100);
 	}
 }
 
@@ -41,7 +41,7 @@ int	philo_solo(t_phbuffer *const phbuffer)
 static void	philo_eating(t_philo *const philo, t_phbuffer *const phbuffer)
 {
 	if (philo->id % 2)
-		usleep(3000);
+		usleep(7000);
 	pthread_mutex_lock(&(phbuffer->fork[philo->left_fork]));
 	print_action(phbuffer, philo->id, PFORK);
 	pthread_mutex_lock(&(phbuffer->fork[philo->right_fork]));
@@ -76,7 +76,7 @@ void	*philo_routine(void *arg)
 		print_action(phbuffer, philo->id, PSLEEP);
 		philo_wait(phbuffer, phbuffer->time_to_sleep);
 		print_action(phbuffer, philo->id, PTHINK);
-		usleep(500);
+		usleep(100);
 	}
 	return (NULL);
 }
@@ -113,5 +113,5 @@ void	monitor_death(t_phbuffer *const phbuffer, t_philo *const philo)
 		phbuffer->end = TRUE;
 		pthread_mutex_unlock(&(phbuffer->checker));
 	}
-	usleep(500);
+	usleep(100);
 }
