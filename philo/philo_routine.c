@@ -16,10 +16,17 @@ static void	philo_wait(t_phbuffer *const phbuffer, const unsigned long time)
 {
 	const unsigned long	std = get_timestamp();
 
-	while (!(phbuffer->end))
+	while (1)
 	{
+		pthread_mutex_lock(&(phbuffer->checker));
+		if (phbuffer->end)
+		{
+			pthread_mutex_unlock(&(phbuffer->checker));
+			return ;
+		}
+		pthread_mutex_unlock(&(phbuffer->checker));
 		if (get_timestamp() - std >= time)
-			break ;
+			return ;
 		usleep(500);
 	}
 }
@@ -39,8 +46,8 @@ static void	philo_eating(t_philo *const philo, t_phbuffer *const phbuffer)
 	print_action(phbuffer, philo->id, PFORK);
 	pthread_mutex_lock(&(phbuffer->fork[philo->right_fork]));
 	print_action(phbuffer, philo->id, PFORK);
-	pthread_mutex_lock(&(phbuffer->eating));
 	print_action(phbuffer, philo->id, PEAT);
+	pthread_mutex_lock(&(phbuffer->eating));
 	philo->last_meal = get_timestamp();
 	pthread_mutex_unlock(&(phbuffer->eating));
 	philo_wait(phbuffer, phbuffer->time_to_eat);
@@ -56,8 +63,15 @@ void	*philo_routine(void *arg)
 	t_philo *const		philo = (t_philo *)arg;
 	t_phbuffer *const	phbuffer = philo->phbuffer;
 
-	while (!(phbuffer->end))
+	while (1)
 	{
+		pthread_mutex_lock(&(phbuffer->checker));
+		if (phbuffer->end)
+		{
+			pthread_mutex_unlock(&(phbuffer->checker));
+			return (NULL);
+		}
+		pthread_mutex_unlock(&(phbuffer->checker));
 		philo_eating(philo, phbuffer);
 		print_action(phbuffer, philo->id, PSLEEP);
 		philo_wait(phbuffer, phbuffer->time_to_sleep);
@@ -79,7 +93,9 @@ void	monitor_death(t_phbuffer *const phbuffer, t_philo *const philo)
 			> (unsigned long)phbuffer->time_to_die)
 		{
 			print_action(phbuffer, philo[i].id, PDIED);
+			pthread_mutex_lock(&(phbuffer->checker));
 			phbuffer->end = TRUE;
+			pthread_mutex_unlock(&(phbuffer->checker));
 		}
 		pthread_mutex_unlock(&(phbuffer->eating));
 	}
@@ -92,6 +108,10 @@ void	monitor_death(t_phbuffer *const phbuffer, t_philo *const philo)
 		++i;
 	pthread_mutex_unlock(&(phbuffer->counting));
 	if (i == phbuffer->num_of_philo)
+	{
+		pthread_mutex_lock(&(phbuffer->checker));
 		phbuffer->end = TRUE;
+		pthread_mutex_unlock(&(phbuffer->checker));
+	}
 	usleep(500);
 }

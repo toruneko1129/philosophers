@@ -69,6 +69,7 @@ typedef struct s_phbuffer
 	pthread_mutex_t		eating;
 	pthread_mutex_t		writing;
 	pthread_mutex_t		counting;
+	pthread_mutex_t		checker;
 	struct s_philo		*philo;
 }	t_phbuffer;
 

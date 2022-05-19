@@ -41,7 +41,8 @@ t_bool	init_mutex(t_phbuffer *const phbuffer)
 
 	if (pthread_mutex_init(&(phbuffer->eating), NULL)
 		|| pthread_mutex_init(&(phbuffer->writing), NULL)
-		|| pthread_mutex_init(&(phbuffer->counting), NULL))
+		|| pthread_mutex_init(&(phbuffer->counting), NULL)
+		|| pthread_mutex_init(&(phbuffer->checker), NULL))
 		return (print_error(EMUTEX));
 	phbuffer->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
 			* phbuffer->num_of_philo);

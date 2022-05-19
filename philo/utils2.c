@@ -23,7 +23,9 @@ unsigned long	get_timestamp(void)
 void	print_action(t_phbuffer *const phbuffer, int id, const char *action)
 {
 	pthread_mutex_lock(&(phbuffer->writing));
+	pthread_mutex_lock(&(phbuffer->checker));
 	if (!phbuffer->end)
 		printf("%lu %d %s\n", get_timestamp(), id, action);
+	pthread_mutex_unlock(&(phbuffer->checker));
 	pthread_mutex_unlock(&(phbuffer->writing));
 }
