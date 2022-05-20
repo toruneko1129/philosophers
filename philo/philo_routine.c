@@ -6,11 +6,26 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 23:00:05 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/20 12:55:32 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/20 23:53:28 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	philo_solo(t_phbuffer *const phbuffer)
+{
+	const unsigned long	std = get_timestamp();
+	unsigned long		res;
+
+	while (1)
+	{
+		res = get_timestamp();
+		if (res - std >= (unsigned long)phbuffer->time_to_die)
+			break ;
+	}
+	printf("%lu %d %s\n", res, 1, PDIED);
+	return (EXIT_SUCCESS);
+}
 
 static void	philo_wait(t_phbuffer *const phbuffer, const unsigned long time)
 {
@@ -29,21 +44,6 @@ static void	philo_wait(t_phbuffer *const phbuffer, const unsigned long time)
 			return ;
 		usleep(100);
 	}
-}
-
-int	philo_solo(t_phbuffer *const phbuffer)
-{
-	const unsigned long	std = get_timestamp();
-	unsigned long		res;
-
-	while (1)
-	{
-		res = get_timestamp();
-		if (res - std >= (unsigned long)phbuffer->time_to_die)
-			break ;
-	}
-	printf("%lu %d %s\n", res, 1, PDIED);
-	return (EXIT_SUCCESS);
 }
 
 static void	philo_eating(t_philo *const philo, t_phbuffer *const phbuffer)
