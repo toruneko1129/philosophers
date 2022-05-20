@@ -6,24 +6,11 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 15:58:03 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/20 12:58:00 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/20 15:15:41 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static void	phbuffer_init(t_phbuffer *const phbuffer)
-{
-	phbuffer->num_of_philo = 0;
-	phbuffer->time_to_die = 0;
-	phbuffer->time_to_eat = 0;
-	phbuffer->time_to_sleep = 0;
-	phbuffer->num_of_times_each_philo_must_eat = 0;
-	phbuffer->opt = FALSE;
-	phbuffer->end = FALSE;
-	phbuffer->fork = NULL;
-	phbuffer->philo = NULL;
-}
 
 static t_bool	setup_rules(const int argc, char **const argv,
 	t_phbuffer *const phbuffer)
@@ -80,7 +67,7 @@ int	main(int argc, char **argv)
 {
 	t_phbuffer	phbuffer;
 
-	phbuffer_init(&phbuffer);
+	memset(&phbuffer, 0, sizeof(phbuffer));
 	if (setup_rules(argc, argv, &phbuffer))
 		return (EXIT_FAILURE);
 	if (phbuffer.num_of_philo == 1)
