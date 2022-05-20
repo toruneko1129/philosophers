@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 15:58:03 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/16 17:46:18 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/20 12:58:00 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ static void	start_routine(t_phbuffer *const phbuffer)
 		pthread_create(&(philo[i].thread), NULL, philo_routine, &(philo[i]));
 	}
 	while (!(phbuffer->end))
+	{
 		monitor_death(phbuffer, philo);
+		monitor_full(phbuffer, philo);
+		usleep(100);
+	}
 }
 
 static void	destroy_phbuffer(t_phbuffer *const phbuffer)

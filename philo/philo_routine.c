@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 23:00:05 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/16 17:47:35 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/20 12:55:32 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,23 @@ static void	philo_wait(t_phbuffer *const phbuffer, const unsigned long time)
 
 int	philo_solo(t_phbuffer *const phbuffer)
 {
-	while (phbuffer->time_to_die > 500)
+	const unsigned long	std = get_timestamp();
+	unsigned long		res;
+
+	while (1)
 	{
-		usleep(500 * 1000);
-		phbuffer->time_to_die -= 500;
+		res = get_timestamp();
+		if (res - std >= (unsigned long)phbuffer->time_to_die)
+			break ;
 	}
-	usleep(phbuffer->time_to_die * 1000);
-	printf("%lu %d %s\n", get_timestamp(), 1, PDIED);
+	printf("%lu %d %s\n", res, 1, PDIED);
 	return (EXIT_SUCCESS);
 }
 
 static void	philo_eating(t_philo *const philo, t_phbuffer *const phbuffer)
 {
 	if (philo->id % 2)
-		usleep(7000);
+		usleep(3000);
 	pthread_mutex_lock(&(phbuffer->fork[philo->left_fork]));
 	print_action(phbuffer, philo->id, PFORK);
 	pthread_mutex_lock(&(phbuffer->fork[philo->right_fork]));
@@ -84,39 +87,4 @@ void	*philo_routine(void *arg)
 		usleep(100);
 	}
 	return (NULL);
-}
-
-void	monitor_death(t_phbuffer *const phbuffer, t_philo *const philo)
-{
-	int		i;
-
-	i = -1;
-	while (++i < phbuffer->num_of_philo)
-	{
-		pthread_mutex_lock(&(phbuffer->eating));
-		if (get_timestamp() - philo[i].last_meal
-			> (unsigned long)phbuffer->time_to_die)
-		{
-			print_action(phbuffer, philo[i].id, PDIED);
-			pthread_mutex_lock(&(phbuffer->checker));
-			phbuffer->end = TRUE;
-			pthread_mutex_unlock(&(phbuffer->checker));
-		}
-		pthread_mutex_unlock(&(phbuffer->eating));
-	}
-	if (phbuffer->end)
-		return ;
-	i = 0;
-	pthread_mutex_lock(&(phbuffer->counting));
-	while (phbuffer->opt && i < phbuffer->num_of_philo
-		&& philo[i].cnt_ate >= phbuffer->num_of_times_each_philo_must_eat)
-		++i;
-	pthread_mutex_unlock(&(phbuffer->counting));
-	if (i == phbuffer->num_of_philo)
-	{
-		pthread_mutex_lock(&(phbuffer->checker));
-		phbuffer->end = TRUE;
-		pthread_mutex_unlock(&(phbuffer->checker));
-	}
-	usleep(100);
 }

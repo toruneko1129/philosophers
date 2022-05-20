@@ -6,7 +6,7 @@
 #    By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 15:37:56 by hkawakit          #+#    #+#              #
-#    Updated: 2022/05/12 23:15:00 by hkawakit         ###   ########.fr        #
+#    Updated: 2022/05/20 12:59:06 by hkawakit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME	=	philo
 SRCS	=	main.c \
 			setup_rules.c \
 			philo_routine.c \
+			monitor.c \
 			utils.c \
 			utils2.c
 OBJS	=	$(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/16 17:47:32 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/20 12:58:39 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ t_bool			init_philo(t_phbuffer *const phbuffer);
 //philo_routine.c
 int				philo_solo(t_phbuffer *const phbuffer);
 void			*philo_routine(void *arg);
+
+//monitor.c
 void			monitor_death(t_phbuffer *const phbuffer, t_philo *const philo);
+void			monitor_full(t_phbuffer *const phbuffer, t_philo *const philo);
 
 //utils.c
 int				ft_atoi(const char *str);
