@@ -1,3 +1,4 @@
-philo/*.o
+*/*.o
+*/*.dSYM/*
 philo/philo
-philo/*.dSYM/*
+philo_bonus/philo_bonus
