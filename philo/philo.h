@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/20 12:58:39 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/22 16:47:40 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@
 # include <limits.h>
 
 # define STDERR 2
+
+//settings
 # define MAX_PHILO 200
+# define MIN_TIME 60
 
 //error message
 # define EARG "[usage]: ./philo <philo> <die> <eat> <sleep> [must_eat]\n"
-# define EVAL "Error: Invalid value\n"
+# define EVAL "Error: Invalid value\nphilo:~200 time:60~\n"
 # define EMALLOC "Error: malloc() failed\n"
 # define EMUTEX "Error: pthread_mutex_init() failed\n"
 

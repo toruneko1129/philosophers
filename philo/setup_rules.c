@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 11:18:37 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/16 11:03:59 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/22 16:45:59 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_bool	get_args(const int argc, char **const argv,
 		phbuffer->opt = TRUE;
 	}
 	if (phbuffer->num_of_philo <= 0 || phbuffer->num_of_philo > MAX_PHILO
-		|| phbuffer->time_to_die <= 0 || phbuffer->time_to_eat <= 0
-		|| phbuffer->time_to_sleep <= 0)
+		|| phbuffer->time_to_die < MIN_TIME || phbuffer->time_to_eat < MIN_TIME
+		|| phbuffer->time_to_sleep < MIN_TIME)
 		return (print_error(EVAL));
 	if (phbuffer->opt && phbuffer->num_of_times_each_philo_must_eat <= 0)
 		return (print_error(EVAL));
