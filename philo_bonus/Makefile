@@ -6,14 +6,16 @@
 #    By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 15:37:56 by hkawakit          #+#    #+#              #
-#    Updated: 2022/05/22 22:49:05 by hkawakit         ###   ########.fr        #
+#    Updated: 2022/05/23 13:46:41 by hkawakit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	philo_bonus
 SRCS	=	main_bonus.c \
 			setup_rules_bonus.c \
-			utils_bonus.c
+			philo_routine_bonus.c \
+			utils_bonus.c \
+			utils2_bonus.c
 OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
 CFLAG	=	-Wall -Wextra -Werror -pthread

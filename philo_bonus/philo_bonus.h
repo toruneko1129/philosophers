@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/23 10:56:30 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/23 13:47:27 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ typedef enum e_boolean
 	TRUE
 }	t_boolean;
 
+typedef struct s_philo
+{
+	int					id;
+	int					cnt_ate;
+	unsigned long		last_meal;
+	pthread_t			monitor;
+	pid_t				pid;
+	struct s_phbuffer	*phbuffer;
+}	t_philo;
+
 typedef struct s_phbuffer
 {
 	int					num_of_philo;
@@ -63,15 +73,23 @@ typedef struct s_phbuffer
 	sem_t				*eating;
 	sem_t				*writing;
 	sem_t				*counting;
+	struct s_philo		*philo;
 }	t_phbuffer;
 
 //setup_rules_bonus.c
 t_bool			get_args(const int argc, char **const argv,
 					t_phbuffer *const phbuffer);
 t_bool			init_semaphore(t_phbuffer *const phbuffer);
+t_bool			init_philo(t_phbuffer *const phbuffer);
+
+//philo_routine_bonus.c
+int				philo_solo(t_phbuffer *const phbuffer);
 
 //utils_bonus.c
 int				ft_atoi(const char *str);
 t_bool			print_error(const char *s);
+
+//utils2_bonus.c
+unsigned long	get_timestamp(void);
 
 #endif

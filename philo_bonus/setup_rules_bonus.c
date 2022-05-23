@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 11:18:37 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/23 10:57:37 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/23 13:27:26 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,25 @@ t_bool	init_semaphore(t_phbuffer *const phbuffer)
 	if (phbuffer->fork == SEM_FAILED || phbuffer->eating == SEM_FAILED
 		|| phbuffer->writing == SEM_FAILED || phbuffer->counting == SEM_FAILED)
 		return (print_error(ESEM));
+	return (FALSE);
+}
+
+t_bool	init_philo(t_phbuffer *const phbuffer)
+{
+	int		i;
+	t_philo	*philo;
+
+	phbuffer->philo = (t_philo *)malloc(sizeof(t_philo)
+			* phbuffer->num_of_philo);
+	if (phbuffer->philo == NULL)
+		return (print_error(EMALLOC));
+	i = -1;
+	while (++i < phbuffer->num_of_philo)
+	{
+		philo = &(phbuffer->philo[i]);
+		memset(philo, 0, sizeof(*philo));
+		philo->id = i + 1;
+		philo->phbuffer = phbuffer;
+	}
 	return (FALSE);
 }
