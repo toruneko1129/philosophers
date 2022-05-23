@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 23:00:05 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/23 13:45:27 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/24 00:38:49 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,12 @@ int	philo_solo(t_phbuffer *const phbuffer)
 	}
 	printf("%lu %d %s\n", res, 1, PDIED);
 	return (EXIT_SUCCESS);
+}
+
+void	philo_routine(t_philo *const philo)
+{
+	t_phbuffer *const	phbuffer = philo->phbuffer;
+
+	philo->last_meal = get_timestamp();
+	exit(0);
 }

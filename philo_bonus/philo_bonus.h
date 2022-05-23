@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/23 13:47:27 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/23 22:42:26 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define EVAL "Error: Invalid value\nphilo:~200 time:60~\n"
 # define ESEM "Error: sem_open() failed\n"
 # define EMALLOC "Error: malloc() failed\n"
+# define EFORK "Error: fork() failed\n"
 
 //philo message
 # define PFORK "has taken a fork"
@@ -84,6 +85,7 @@ t_bool			init_philo(t_phbuffer *const phbuffer);
 
 //philo_routine_bonus.c
 int				philo_solo(t_phbuffer *const phbuffer);
+void			philo_routine(t_philo *const philo);
 
 //utils_bonus.c
 int				ft_atoi(const char *str);
@@ -91,5 +93,7 @@ t_bool			print_error(const char *s);
 
 //utils2_bonus.c
 unsigned long	get_timestamp(void);
+void			print_action(t_phbuffer *const phbuffer, const int id,
+					const char *action);
 
 #endif
