@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 16:26:29 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/23 22:42:26 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/26 22:52:32 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+# include <signal.h>
 
 # define STDERR 2
 
@@ -73,7 +74,6 @@ typedef struct s_phbuffer
 	sem_t				*fork;
 	sem_t				*eating;
 	sem_t				*writing;
-	sem_t				*counting;
 	struct s_philo		*philo;
 }	t_phbuffer;
 
@@ -87,7 +87,11 @@ t_bool			init_philo(t_phbuffer *const phbuffer);
 int				philo_solo(t_phbuffer *const phbuffer);
 void			philo_routine(t_philo *const philo);
 
+//monitor_bonus.c
+void			*monitor_philo(void *arg);
+
 //utils_bonus.c
+size_t			ft_strlen(const char *s);
 int				ft_atoi(const char *str);
 t_bool			print_error(const char *s);
 

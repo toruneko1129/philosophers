@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 15:58:03 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/23 22:44:18 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/26 23:39:18 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,26 @@ static t_bool	start_routine(t_phbuffer *const phbuffer)
 	}
 	i = -1;
 	while (++i < phbuffer->num_of_philo)
+	{
 		waitpid(-1, &wstatus, 0);
+		if (WEXITSTATUS(wstatus))
+		{
+			i = -1;
+			while (++i < phbuffer->num_of_philo)
+				kill(philo[i].pid, SIGKILL);
+			break ;
+		}
+	}
 	return (FALSE);
+}
+
+static void	destroy_phbuffer(t_phbuffer *const phbuffer)
+{
+	sem_unlink("/philo_fork");
+	sem_unlink("/philo_eating");
+	sem_unlink("/philo_writing");
+	free(phbuffer->philo);
+	phbuffer->philo = NULL;
 }
 
 int	main(int argc, char **argv)
@@ -56,11 +74,6 @@ int	main(int argc, char **argv)
 		return (philo_solo(&phbuffer));
 	if (start_routine(&phbuffer))
 		return (EXIT_FAILURE);
-	sem_unlink("/philo_fork");
-	sem_unlink("/philo_eating");
-	sem_unlink("/philo_writing");
-	sem_unlink("/philo_counting");
-	free(phbuffer.philo);
-	phbuffer.philo = NULL;
+	destroy_phbuffer(&phbuffer);
 	return (EXIT_SUCCESS);
 }

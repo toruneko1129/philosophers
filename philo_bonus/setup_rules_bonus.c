@@ -6,7 +6,7 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 11:18:37 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/23 17:01:26 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/24 17:18:08 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,14 @@ t_bool	init_semaphore(t_phbuffer *const phbuffer)
 	sem_unlink("/philo_fork");
 	sem_unlink("/philo_eating");
 	sem_unlink("/philo_writing");
-	sem_unlink("/philo_counting");
 	phbuffer->fork = sem_open("/philo_fork", O_CREAT,
 			S_IREAD | S_IWRITE, phbuffer->num_of_philo);
 	phbuffer->eating = sem_open("/philo_eating", O_CREAT,
 			S_IREAD | S_IWRITE, 1);
 	phbuffer->writing = sem_open("/philo_writing", O_CREAT,
 			S_IREAD | S_IWRITE, 1);
-	phbuffer->counting = sem_open("/philo_counting", O_CREAT,
-			S_IREAD | S_IWRITE, 1);
 	if (phbuffer->fork == SEM_FAILED || phbuffer->eating == SEM_FAILED
-		|| phbuffer->writing == SEM_FAILED || phbuffer->counting == SEM_FAILED)
+		|| phbuffer->writing == SEM_FAILED)
 		return (print_error(ESEM));
 	return (FALSE);
 }

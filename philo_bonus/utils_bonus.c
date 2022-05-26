@@ -6,13 +6,13 @@
 /*   By: hkawakit <hkawakit@student.42tokyo.j>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 21:01:07 by hkawakit          #+#    #+#             */
-/*   Updated: 2022/05/22 22:48:19 by hkawakit         ###   ########.fr       */
+/*   Updated: 2022/05/26 22:22:43 by hkawakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-static size_t	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
