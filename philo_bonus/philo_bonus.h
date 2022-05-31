@@ -24,6 +24,7 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <signal.h>
+# include <sys/wait.h>
 
 # define STDERR 2
 

@@ -37,7 +37,6 @@ void	print_action(t_phbuffer *const phbuffer, const int id,
 {
 	sem_wait(phbuffer->writing);
 	printf("%lu %d %s\n", get_timestamp(), id, action);
-	(void)ft_strncmp;
 	if (ft_strncmp(PDIED, action, ft_strlen(PDIED)))
 		sem_post(phbuffer->writing);
 }
